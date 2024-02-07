@@ -35,8 +35,15 @@ export class TodoService {
     return todo;
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo`;
+  update(id: number, updateTodoDto: UpdateTodoDto): Todo {
+    const todo = this.findOne(id);
+
+    if (updateTodoDto.description) todo.description = updateTodoDto.description;
+    if (updateTodoDto.done) todo.done = updateTodoDto.done;
+
+    this.todos = this.todos.map((t) => (t.id === todo.id ? todo : t));
+
+    return todo;
   }
 
   remove(id: number) {
