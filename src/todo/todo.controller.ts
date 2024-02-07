@@ -15,10 +15,10 @@ import { Todo } from './entities/todo.entity';
 
 @Controller('todo')
 export class TodoController {
-  constructor(private readonly todoService: TodoService) { }
+  constructor(private readonly todoService: TodoService) {}
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
+  create(@Body() createTodoDto: CreateTodoDto): Todo {
     return this.todoService.create(createTodoDto);
   }
 

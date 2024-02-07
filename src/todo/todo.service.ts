@@ -5,14 +5,24 @@ import { Todo } from './entities/todo.entity';
 
 @Injectable()
 export class TodoService {
-  private todos: Todo[] = [{
-    id: 1,
-    description: 'todo-description',
-    done: false,
-  }];
+  private todos: Todo[] = [
+    {
+      id: 1,
+      description: 'todo-description',
+      done: false,
+    },
+  ];
 
-  create(createTodoDto: CreateTodoDto) {
-    return 'This action adds a new todo';
+  create(createTodoDto: CreateTodoDto): Todo {
+    const todo = new Todo();
+
+    todo.id = Math.max(...this.todos.map((t) => t.id), 0) + 1;
+    todo.description = createTodoDto.description;
+    todo.done = false;
+
+    this.todos.push(todo);
+
+    return todo;
   }
 
   findAll(): Todo[] {
